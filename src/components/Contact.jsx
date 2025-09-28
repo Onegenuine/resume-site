@@ -116,11 +116,11 @@ export default function Contact(){
         <motion.a 
           className="btn" 
           href="/resume.pdf" 
-          download
+          download="Фалалеев_Вячеслав_Resume.pdf"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Скачать PDF
+          📄 Скачать PDF
         </motion.a>
       </motion.div>
     </motion.div>

@@ -35,28 +35,100 @@ export default function About(){
         viewport={{ once: true }}
       >
         <motion.div 
+          className="skill-category"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <strong>Языки:</strong> Java (8–21)
+          <h3>Языки программирования</h3>
+          <div className="skill-tags">
+            <span className="skill-tag">Java (8–21)</span>
+          </div>
         </motion.div>
+        
         <motion.div 
+          className="skill-category"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.5 }}
           viewport={{ once: true }}
         >
-          <strong>Технологии:</strong> Spring Boot, PostgreSQL, Kafka, Docker, Liquibase, JUnit
+          <h3>Backend технологии</h3>
+          <div className="skill-tags">
+            <span className="skill-tag">Spring Boot</span>
+            <span className="skill-tag">Spring Web</span>
+            <span className="skill-tag">Spring Security</span>
+            <span className="skill-tag">Spring Data</span>
+          </div>
         </motion.div>
+        
         <motion.div 
+          className="skill-category"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.6 }}
           viewport={{ once: true }}
         >
-          <strong>Инструменты:</strong> Git, Maven, Prometheus, Grafana
+          <h3>Базы данных</h3>
+          <div className="skill-tags">
+            <span className="skill-tag">PostgreSQL</span>
+            <span className="skill-tag">H2</span>
+            <span className="skill-tag">Оптимизация SQL</span>
+            <span className="skill-tag">Индексация</span>
+          </div>
+        </motion.div>
+        
+        <motion.div 
+          className="skill-category"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.7 }}
+          viewport={{ once: true }}
+        >
+          <h3>Инфраструктура</h3>
+          <div className="skill-tags">
+            <span className="skill-tag">Docker</span>
+            <span className="skill-tag">Docker Compose</span>
+            <span className="skill-tag">Kafka</span>
+            <span className="skill-tag">RabbitMQ</span>
+          </div>
+        </motion.div>
+        
+        <motion.div 
+          className="skill-category"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h3>Инструменты разработки</h3>
+          <div className="skill-tags">
+            <span className="skill-tag">Maven</span>
+            <span className="skill-tag">Git</span>
+            <span className="skill-tag">GitLab CI/CD</span>
+            <span className="skill-tag">GitHub Actions</span>
+            <span className="skill-tag">Liquibase</span>
+            <span className="skill-tag">Swagger</span>
+            <span className="skill-tag">OpenAPI</span>
+          </div>
+        </motion.div>
+        
+        <motion.div 
+          className="skill-category"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.9 }}
+          viewport={{ once: true }}
+        >
+          <h3>Тестирование и мониторинг</h3>
+          <div className="skill-tags">
+            <span className="skill-tag">JUnit</span>
+            <span className="skill-tag">Mockito</span>
+            <span className="skill-tag">Testcontainers</span>
+            <span className="skill-tag">Prometheus</span>
+            <span className="skill-tag">Grafana</span>
+          </div>
         </motion.div>
       </motion.div>
     </motion.div>
