@@ -4,7 +4,7 @@
 Это React-версия динамичного резюме, собранная на Vite + React + Framer Motion.
 
 ## Быстрый старт (локально)
-1. Установи зависимости: `npm install`
+1. Установка зависимостей: `npm install`
 2. Запуск в режиме разработки: `npm run dev`
 3. Сборка production: `npm run build`
 4. Просмотр production локально: `npm run preview`

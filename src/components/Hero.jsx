@@ -16,7 +16,7 @@ export default function Hero(){
         <a className="btn ghost" href="mailto:falaleev.fol@mail.ru">Написать</a>
       </motion.div>
 
-      <div className="hero-meta">Москва · Готов к переезду · 200 000 ₽ netto</div>
+      <div className="hero-meta">Москва · Готов к переезду · 250 000 ₽ netto</div>
     </div>
   );
 }
