@@ -1,0 +1,9 @@
+rootProject.name = 'flashcard-microservices'
+
+include 'gateway-service'
+include 'auth-service'
+include 'question-service'
+include 'profile-service'
+include 'battle-service'
+include 'common'
+
