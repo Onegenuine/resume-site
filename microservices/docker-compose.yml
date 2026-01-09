@@ -1,0 +1,155 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: flashcard-keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+    ports:
+      - "9090:8080"
+    command: start-dev
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    networks:
+      - flashcard-network
+
+  keycloak-db:
+    image: postgres:15-alpine
+    container_name: flashcard-keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - keycloak_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flashcard-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: flashcard-postgres
+    environment:
+      POSTGRES_DB: flashcard_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flashcard-network
+
+  gateway:
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    container_name: flashcard-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - keycloak
+    environment:
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/flashcard
+    networks:
+      - flashcard-network
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: flashcard-auth
+    ports:
+      - "8081:8081"
+    depends_on:
+      - keycloak
+    environment:
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/flashcard
+    networks:
+      - flashcard-network
+
+  question-service:
+    build:
+      context: ./question-service
+      dockerfile: Dockerfile
+    container_name: flashcard-question
+    ports:
+      - "8082:8082"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: flashcard_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/flashcard
+    networks:
+      - flashcard-network
+
+  profile-service:
+    build:
+      context: ./profile-service
+      dockerfile: Dockerfile
+    container_name: flashcard-profile
+    ports:
+      - "8083:8083"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: flashcard_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/flashcard
+    networks:
+      - flashcard-network
+
+  battle-service:
+    build:
+      context: ./battle-service
+      dockerfile: Dockerfile
+    container_name: flashcard-battle
+    ports:
+      - "8084:8084"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: flashcard_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/flashcard
+    networks:
+      - flashcard-network
+
+volumes:
+  postgres_data:
+  keycloak_data:
+
+networks:
+  flashcard-network:
+    driver: bridge
+
